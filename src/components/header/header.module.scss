@@ -1,0 +1,36 @@
+@import '../../../node_modules/modern-normalize/modern-normalize.css';
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2vw;
+    width: 100vw;
+    height: 115px;
+    font-weight: bold;
+    background-color: #000;
+}
+
+.logo {
+    width: 94px;
+    height: 44px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    width: 30vw;
+    color: #fff;
+}
+
+.search {
+    margin-right: -1.5vw;
+}
+
+.account{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 0.1;
+    color: #fff;
+}
