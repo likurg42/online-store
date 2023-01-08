@@ -2,7 +2,7 @@
   "name": "online-store",
   "version": "1.0.0",
   "description": "",
-  "main": "main.jsx",
+  "main": "index.tsx",
   "scripts": {
     "develop": "webpack serve --open --config webpack.common.js --env mode=dev",
     "build": "webpack --config webpack.common.js --env mode=prod",

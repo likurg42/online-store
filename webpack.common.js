@@ -7,7 +7,7 @@ const devConfig = require('./webpack.dev');
 const baseConfig = {
     entry: path.join(__dirname, 'src', 'index.tsx'),
     resolve: {
-        extensions: ['.js', '.jsx', '.ts', '.jsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.scss'],
     },
     output: {
         path: path.join(__dirname, 'dist'),

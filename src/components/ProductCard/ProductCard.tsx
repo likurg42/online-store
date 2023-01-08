@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from './ProductCard.module.scss';
 import formatPrice from '../../utils/formatPrice';
+import { ProductCardProps } from '../../types/components';
 
-function ProductCard({ description, price, thumbnail, category }) {
+function ProductCard({ description, price, thumbnail, category, id }: ProductCardProps) {
+    console.log(id);
     return (
         <p className={cn.card}>
             <img className={cn.card__thumbnail} src={thumbnail} alt="title" />
