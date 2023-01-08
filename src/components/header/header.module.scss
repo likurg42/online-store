@@ -1,12 +1,13 @@
 .header {
+    background-color: #000;
+}
+
+.header-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2vw;
-    width: 100vw;
     height: 115px;
     font-weight: bold;
-    background-color: #000;
 }
 
 .logo {
@@ -17,7 +18,6 @@
 .nav {
     display: flex;
     justify-content: space-between;
-    width: 30vw;
     color: #fff;
 }
 
