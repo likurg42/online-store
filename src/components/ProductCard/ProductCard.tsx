@@ -6,6 +6,7 @@ import { ProductCardProps } from '../../types/components';
 
 function ProductCard({ description, price, thumbnail, category, id }: ProductCardProps) {
     console.log(`${id}`);
+    console.log('second test');
     return (
         <p className={cn.card}>
             <img className={cn.card__thumbnail} src={thumbnail} alt="title" />
