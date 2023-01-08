@@ -20,6 +20,12 @@
     "strictNullChecks": true,
     "removeComments": true,
     "jsx": "react",
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types"
+    ]
+  },
 }

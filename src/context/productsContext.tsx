@@ -1,5 +1,4 @@
 import React, { useReducer, useMemo, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import reducer from '../reducers/productsReducer';
 import { PRODUCTS_URL } from '../utils/constants';
 import {
@@ -11,29 +10,40 @@ import {
     GET_SINGLE_PRODUCT_ERROR,
 } from '../utils/actions';
 
-const initalState = {
+import {
+    Product,
+    ProductsContextState,
+    ProductsContextInterface,
+    ProductsProviderProps,
+    ProductsContextDispatcherAction,
+    ProductsResponse,
+} from '../types/contexts';
+
+const initalState: ProductsContextState = {
     areProductsLoading: false,
     isProductsError: false,
     products: [],
-    featuredProducts: [],
     isSingleProductLoading: false,
     isSingleProductSuccess: false,
     isSingleProductError: false,
-    singleProduct: {},
+    singleProduct: null,
 };
 
-export const ProductsContext = React.createContext();
+export const ProductsContext = React.createContext<ProductsContextInterface | null>(null);
 
-export function ProductsProvider(props) {
+export function ProductsProvider(props: ProductsProviderProps) {
     const { children } = props;
-    const [state, dispatch] = useReducer(reducer, initalState);
+    const [state, dispatch]: [ProductsContextState, React.Dispatch<ProductsContextDispatcherAction>] = useReducer(
+        reducer,
+        initalState,
+    );
 
     const fetchProducts = useCallback(
-        async (url) => {
+        async (url: string) => {
             dispatch({ type: GET_PRODUCTS_BEGIN });
             try {
                 const res = await fetch(url);
-                const data = await res.json();
+                const data: ProductsResponse = await res.json();
                 const { products } = data;
                 dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
             } catch (error) {
@@ -48,11 +58,11 @@ export function ProductsProvider(props) {
     }, [fetchProducts]);
 
     const fetchSingleProduct = useCallback(
-        async (url, id) => {
+        async (url: string, id: keyof Product) => {
             dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
             try {
                 const res = await fetch(`${url}${id}`);
-                const product = await res.json();
+                const product: Product = await res.json();
                 dispatch({ type: GET_SINGLE_PRODUCT_SUCCESS, payload: product });
             } catch (error) {
                 dispatch({ type: GET_SINGLE_PRODUCT_ERROR });
@@ -61,11 +71,10 @@ export function ProductsProvider(props) {
         [dispatch],
     );
 
-    const value = useMemo(() => ({ ...state, fetchSingleProduct }), [state, fetchSingleProduct]);
+    const context: ProductsContextInterface = useMemo(
+        () => ({ ...state, fetchSingleProduct }),
+        [state, fetchSingleProduct],
+    );
 
-    return <ProductsContext.Provider value={value}>{children}</ProductsContext.Provider>;
+    return <ProductsContext.Provider value={context}>{children}</ProductsContext.Provider>;
 }
-
-ProductsProvider.propTypes = {
-    children: PropTypes.node.isRequired,
-};

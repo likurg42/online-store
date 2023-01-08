@@ -1,3 +1,4 @@
+import { ProductsContextState, ProductsContextDispatcherAction, Product } from '../types/contexts';
 import {
     GET_PRODUCTS_BEGIN,
     GET_PRODUCTS_ERROR,
@@ -7,13 +8,16 @@ import {
     GET_SINGLE_PRODUCT_SUCCESS,
 } from '../utils/actions';
 
-const productsReducer = (state, action) => {
+const productsReducer = (
+    state: ProductsContextState,
+    action: ProductsContextDispatcherAction,
+): ProductsContextState => {
     switch (action.type) {
         /* Get Products */
         case GET_PRODUCTS_BEGIN:
             return { ...state, areProductsLoading: true, isProductsError: false };
         case GET_PRODUCTS_SUCCESS:
-            return { ...state, areProductsLoading: false, products: action.payload };
+            return { ...state, areProductsLoading: false, products: action.payload as Product[] };
         case GET_PRODUCTS_ERROR:
             return { ...state, areProductsLoading: false, isProductsError: true };
         /* Get single product */
@@ -29,7 +33,7 @@ const productsReducer = (state, action) => {
                 ...state,
                 isSingleProductLoading: false,
                 isSingleProductSuccess: true,
-                singleProduct: action.payload,
+                singleProduct: action.payload as Product,
             };
         case GET_SINGLE_PRODUCT_ERROR:
             return { ...state, isSingleProductLoading: false, isSingleProductError: true };

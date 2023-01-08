@@ -1,7 +1,7 @@
-const formatPrice = (number) =>
+const formatPrice = (value: number): string =>
     new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'EUR',
-    }).format(Math.round(number * 0.94));
+    }).format(Math.round(value * 0.94));
 
 export default formatPrice;

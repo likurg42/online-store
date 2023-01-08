@@ -1,4 +1,10 @@
-export const links = [
+export interface ILinks {
+    id: number;
+    text: string;
+    url: string;
+}
+
+export const links: ILinks[] = [
     {
         id: 1,
         text: 'Products',
@@ -11,7 +17,14 @@ export const links = [
     },
 ];
 
-export const productSortTypes = {
+export interface IProductSortTypes {
+    priceLowest: 'price-lowest';
+    priceHighest: 'price-highest';
+    nameAscending: 'name-a';
+    nameDescending: 'name-z';
+}
+
+export const productSortTypes: IProductSortTypes = {
     priceLowest: 'price-lowest',
     priceHighest: 'price-highest',
     nameAscending: 'name-a',
