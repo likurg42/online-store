@@ -5,7 +5,7 @@ import formatPrice from '../../utils/formatPrice';
 import { ProductCardProps } from '../../types/components';
 
 function ProductCard({ description, price, thumbnail, category, id }: ProductCardProps) {
-    console.log(`${id}`);
+    console.log(`${id} text`);
     console.log('second test');
     return (
         <p className={cn.card}>
