@@ -61,7 +61,6 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
 
             if (name === 'currMinPrice') {
                 const parsedValue = parseInt(value, 10);
-                console.log('here', parsedValue);
 
                 if (parsedValue < state.filters.currMaxPrice - 100) {
                     return {

@@ -11,7 +11,7 @@ export interface Product {
     brand: string;
     category: string;
     thumbnail: string;
-    image: string[];
+    images: string[];
 }
 
 export interface ProductsResponse {
@@ -92,3 +92,38 @@ export type FilterContextDispatcherAction = {
         | Filters
         | { [key: string]: string };
 };
+
+/* Cart context */
+
+export interface CartItem {
+    id: number;
+    title: string;
+    amount: number;
+    image: string;
+    price: number;
+    stock: number;
+}
+
+export type Cart = CartItem[];
+export interface CartContextState {
+    cart: Cart;
+    totalProducts: number;
+    totalAmount: number;
+    promo?: number;
+}
+
+export interface CartContextUtils {
+    addToCart: (id: number, amount: number, product: Product) => void;
+    removeFromCart: (id: number) => void;
+}
+
+export interface CartProviderProps {
+    children: ReactNode;
+}
+
+export interface CartContextDispatcherAction {
+    type: string;
+    payload?: number | { id: number; amount: number; product: Product };
+}
+
+export type CartContextInterface = CartContextState & CartContextUtils;
