@@ -1,9 +1,19 @@
 .products {
+    display: block;
 }
 
-.products__grid {
+.products__layout {
     display: grid;
+    padding: 0;
+    margin: 0;
     gap: 2rem 1.5rem;
     list-style: none;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.products__layout--grid {
+    grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+}
+
+.products__layout--list {
+    grid-template-columns: 1fr;
 }

@@ -8,8 +8,7 @@ export const GET_SINGLE_PRODUCT_SUCCESS: Action = 'GET_SINGLE_PRODUCT_SUCCESS';
 export const GET_SINGLE_PRODUCT_ERROR: Action = 'GET_SINGLE_PRODUCT_ERROR';
 /* Filter */
 export const LOAD_PRODUCTS: Action = 'LOAD_PRODUCTS';
-export const SET_GRIDVIEW: Action = 'SET_GRIDVIEW';
-export const SET_LISTVIEW: Action = 'SETLISTVIEW';
+export const SET_VIEW: Action = 'SET_VIEW';
 export const UPDATE_SORT: Action = 'UPDATE_SORT';
 export const SORT_PRODUCTS: Action = 'SORT_PRODUCTS';
 export const UPDATE_FILTERS: Action = 'UPDATE_FILTERS';

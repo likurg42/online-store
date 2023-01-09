@@ -17,18 +17,4 @@ export const links: ILinks[] = [
     },
 ];
 
-export interface IProductSortTypes {
-    priceLowest: 'price-lowest';
-    priceHighest: 'price-highest';
-    nameAscending: 'name-a';
-    nameDescending: 'name-z';
-}
-
-export const productSortTypes: IProductSortTypes = {
-    priceLowest: 'price-lowest',
-    priceHighest: 'price-highest',
-    nameAscending: 'name-a',
-    nameDescending: 'name-z',
-};
-
 export const PRODUCTS_URL = 'https://dummyjson.com/products/';

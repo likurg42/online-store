@@ -38,10 +38,8 @@ const productsReducer = (
         case GET_SINGLE_PRODUCT_ERROR:
             return { ...state, isSingleProductLoading: false, isSingleProductError: true };
         default:
-            break;
+            throw new Error(`No Mathcing "${action.type}" - action type `);
     }
-
-    throw new Error(`No Mathcing "${action.type}" - action type `);
 };
 
 export default productsReducer;

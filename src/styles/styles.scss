@@ -19,6 +19,9 @@
     --fw-400: 400;
     --fw-500: 500;
     --fw-600: 600;
+
+    /* Spacing */
+    --gap: 0.875rem;
 }
 html {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
@@ -26,6 +29,6 @@ html {
 }
 
 .container {
-    width: clamp(16rem, 90vw, 70rem);
+    width: clamp(16rem, 95vw, 70rem);
     margin: 0 auto;
 }
