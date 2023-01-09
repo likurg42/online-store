@@ -8,7 +8,7 @@ import {
     CartProviderProps,
     Product,
 } from '../types/contexts';
-import { ADD_TO_CART, COUNT_CART_TOTALS, REMOVE_CART_ITEM } from '../utils/actions';
+import { ADD_TO_CART, COUNT_CART_TOTALS, REMOVE_CART_ITEM, UPDATE_CART_ITEM_AMOUNT } from '../utils/actions';
 
 import reducer from '../reducers/cartReducer';
 
@@ -40,6 +40,9 @@ export function CartProvider(props: CartProviderProps) {
             removeFromCart: (id: number) => {
                 dispatch({ type: REMOVE_CART_ITEM, payload: id });
             },
+            updateCartItemAmount: (id: number, value: number) => {
+                dispatch({ type: UPDATE_CART_ITEM_AMOUNT, payload: { id, value } });
+            },
         }),
         [],
     );
@@ -48,6 +51,7 @@ export function CartProvider(props: CartProviderProps) {
         localStorage.setItem('cart', JSON.stringify(state.cart));
         dispatch({ type: COUNT_CART_TOTALS });
     }, [state.cart]);
+
     const context: CartContextInterface = useMemo(() => ({ ...state, ...cartUtils }), [state, cartUtils]);
     return <CartContext.Provider value={context}>{children}</CartContext.Provider>;
 }

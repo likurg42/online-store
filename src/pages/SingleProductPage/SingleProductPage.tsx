@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // useParams, useHistory,
-// import { Error, Breadcrumbs, ProductImages } from '../components';
 import ErrorPage from '../ErrorPage';
+import style from './SingleProductPage.module.scss';
 import useProductsContext from '../../hooks/useProductsContext';
 import { ProductsContextInterface } from '../../types/contexts';
 import { PRODUCTS_URL } from '../../utils/constants';
-// import { Loading, Error, ProductImages, AddToCartButton } from '../components/index';
+import { SingleProduct, Breadcrumbs } from '../../components';
 
 function SingleProductPage() {
     const navigate = useNavigate();
@@ -39,17 +39,39 @@ function SingleProductPage() {
     }
 
     if (singleProduct && singleProduct.id === id && isSingleProductSuccess) {
-        const { title } = singleProduct;
+        const {
+            title,
+            brand,
+            category,
+            description,
+            id: currProductId,
+            images,
+            price,
+            thumbnail,
+            rating,
+            stock,
+        } = singleProduct;
         return (
-            <>
-                {/* <Breadcrumbs title={title} product /> */}
-                <div className="container page">
+            <div className="container">
+                <div className={style.productPage}>
+                    <Breadcrumbs title={title} />
                     <div className="products-center">{/* <ProductImages /> */}</div>
                     <section className="content">
-                        <h2>{title}</h2>
+                        <SingleProduct
+                            title={title}
+                            brand={brand}
+                            category={category}
+                            description={description}
+                            id={currProductId}
+                            images={images}
+                            price={price}
+                            thumbnail={thumbnail}
+                            rating={rating}
+                            stock={stock}
+                        />
                     </section>
                 </div>
-            </>
+            </div>
         );
     }
 

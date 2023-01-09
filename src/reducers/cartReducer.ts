@@ -1,5 +1,5 @@
 import { CartItem } from '../types/contexts.d';
-import { ADD_TO_CART, COUNT_CART_TOTALS, REMOVE_CART_ITEM } from '../utils/actions';
+import { ADD_TO_CART, COUNT_CART_TOTALS, REMOVE_CART_ITEM, UPDATE_CART_ITEM_AMOUNT } from '../utils/actions';
 import { CartContextState, CartContextDispatcherAction, Product } from '../types/contexts';
 
 export default function filterReducer(state: CartContextState, action: CartContextDispatcherAction): CartContextState {
@@ -51,6 +51,18 @@ export default function filterReducer(state: CartContextState, action: CartConte
                 { totalProducts: 0, totalAmount: 0 },
             );
             return { ...state, totalProducts, totalAmount };
+        }
+        case UPDATE_CART_ITEM_AMOUNT: {
+            const { id, value } = action.payload as { id: number; value: number };
+            const newCart = state.cart.map((item) => {
+                if (item.id === id) {
+                    const newAmount = value <= item.stock && value > 0 ? value : item.amount;
+                    return { ...item, amount: newAmount };
+                }
+
+                return item;
+            });
+            return { ...state, cart: newCart };
         }
         default:
             throw new Error(`There is no such action ${action.type}`);
