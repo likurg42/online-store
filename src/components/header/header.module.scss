@@ -5,7 +5,9 @@
 .header-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+    padding: 0 2vw;
+    width: 100vw;
     height: 115px;
     font-weight: bold;
 }
@@ -13,6 +15,16 @@
 .logo {
     width: 94px;
     height: 44px;
+    transition: 0.4s;
+}
+.cart {
+    width: 100px;
+}
+
+.logo:hover,
+.cart:hover {
+    transition: 0.4s;
+    opacity: 0.5;
 }
 
 .nav {
