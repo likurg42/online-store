@@ -10,7 +10,7 @@ export default function Header() {
             <Link to="/">
                 <img className={cl.logo} src={logo} alt="logo" />
             </Link>
-            <Link to="/*">
+            <Link to="/cart">
                 <img className={cl.cart} src={cart} alt="cart" />
             </Link>
         </div>
