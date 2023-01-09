@@ -38,32 +38,32 @@ function ProductCard({
     const cartItem = cart.find((item) => item.id === id);
 
     return (
-        <p className={`${styles.card} ${layoutType}`} data-id={id}>
-            <Link to={`/product/${id}`}>
+        <Link className={styles.card__link} to={`/product/${id}`}>
+            <p className={`${styles.card} ${layoutType}`} data-id={id}>
                 <img className={styles.card__thumbnail} src={thumbnail} alt="title" />
-            </Link>
-            <span className={styles.card__info}>
-                <span className={styles.card__category}>{category}</span>
-                <span className={styles.card__description}>{description.substring(0, 150)}...</span>
-            </span>
-            <span className={styles.card__footer}>
-                <span className={styles.card__price}>{formatPrice(price)}</span>
-
-                <button
-                    className={styles.card__btn}
-                    type="button"
-                    onClick={() => {
-                        if (cartItem) {
-                            removeFromCart(id);
-                        } else {
-                            addToCart(id, 1, product);
-                        }
-                    }}
-                >
-                    {cartItem ? 'Remove' : 'Add to bag'}
-                </button>
-            </span>
-        </p>
+                <span className={styles.card__info}>
+                    <span className={styles.card__category}>{category}</span>
+                    <span className={styles.card__description}>{description.substring(0, 150)}...</span>
+                </span>
+                <span className={styles.card__footer}>
+                    <span className={styles.card__price}>{formatPrice(price)}</span>
+                    <button
+                        className={styles.card__btn}
+                        type="button"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            if (cartItem) {
+                                removeFromCart(id);
+                            } else {
+                                addToCart(id, 1, product);
+                            }
+                        }}
+                    >
+                        {cartItem ? 'Remove' : 'Add to bag'}
+                    </button>
+                </span>
+            </p>
+        </Link>
     );
 }
 

@@ -9,6 +9,13 @@
     font-family: var(--ff-main);
     border: 1px solid var(--clr-black);
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    cursor: pointer;
+
+    &:hover {
+        .card__thumbnail {
+            filter: brightness(70%);
+        }
+    }
 }
 
 .card--vertical {
@@ -30,6 +37,10 @@
     }
 }
 
+.card__link {
+    all: unset;
+}
+
 .card__thumbnail {
     display: block;
     width: 100%;
@@ -37,9 +48,6 @@
     object-fit: cover;
     border-bottom: 1px solid var(--clr-black);
     transition: filter ease 0.2s;
-    &:hover {
-        filter: brightness(70%);
-    }
 }
 
 .card__info {
@@ -91,6 +99,7 @@
     color: var(--clr-white);
     text-transform: uppercase;
     border: none;
+    cursor: pointer;
 
     &:hover {
         background-color: var(--clr-main-2);
