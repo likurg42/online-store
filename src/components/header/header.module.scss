@@ -1,7 +1,7 @@
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 0 2vw;
     width: 100vw;
     height: 115px;
@@ -12,23 +12,14 @@
 .logo {
     width: 94px;
     height: 44px;
+    transition: .4s;
+}
+ .cart {
+    width: 100px;
+ }
+
+.logo:hover, .cart:hover {
+    transition: .4s;
+    opacity: .5;
 }
 
-.nav {
-    display: flex;
-    justify-content: space-between;
-    width: 30vw;
-    color: #fff;
-}
-
-.search {
-    margin-right: -1.5vw;
-}
-
-.account {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-grow: 0.1;
-    color: #fff;
-}

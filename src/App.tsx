@@ -9,6 +9,7 @@ export default function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<ProductsPage />} />
+                {/* <Route path="/card" element={<CartPage />} /> */}
                 <Route path="*" element={<ErrorPage />} />
             </Routes>
         </BrowserRouter>
