@@ -74,6 +74,7 @@ export interface FilterUtils {
     updateSort: React.ChangeEventHandler<HTMLSelectElement>;
     updateFilters: React.ChangeEventHandler<HTMLSelectElement | HTMLInputElement>;
     updateFiltersFromQuery: (newFilter: { [key: string]: string }) => void;
+    clearFilters: () => void;
 }
 
 export type FilterContextInterface = FilterContextState & FilterUtils;
@@ -90,7 +91,9 @@ export type FilterContextDispatcherAction = {
         | ProductsListView
         | { name: string; value: string }
         | Filters
-        | { [key: string]: string };
+        | { [key: string]: string }
+        | Partial<Filters>
+        | FilterContextState;
 };
 
 /* Cart context */

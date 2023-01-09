@@ -5,8 +5,18 @@ import useFilterContext from '../../hooks/useFilterContext';
 import { FilterContextInterface } from '../../types/contexts';
 
 export default function ProductForm() {
-    const { updateFilters, brands, categories, filters, minStock, maxStock, minPrice, maxPrice, queryFilters } =
-        useFilterContext() as FilterContextInterface;
+    const {
+        updateFilters,
+        brands,
+        categories,
+        filters,
+        minStock,
+        maxStock,
+        minPrice,
+        maxPrice,
+        queryFilters,
+        clearFilters,
+    } = useFilterContext() as FilterContextInterface;
     const { text, currMinPrice, currMaxPrice, currMaxStock, currMinStock, brand, category } = filters;
 
     const [, setSearchParams] = useSearchParams();
@@ -142,6 +152,17 @@ export default function ProductForm() {
                         step="1"
                     />
                 </span>
+                <button
+                    className={styles.productForm__btn}
+                    type="button"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        clearFilters();
+                        setSearchParams(new URLSearchParams());
+                    }}
+                >
+                    Clear
+                </button>
             </p>
         </form>
     );
