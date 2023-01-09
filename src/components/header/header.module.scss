@@ -1,4 +1,8 @@
 .header {
+    background-color: #000;
+}
+
+.header-inner {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -6,20 +10,37 @@
     width: 100vw;
     height: 115px;
     font-weight: bold;
-    background-color: #000;
 }
 
 .logo {
     width: 94px;
     height: 44px;
-    transition: .4s;
+    transition: 0.4s;
 }
- .cart {
+.cart {
     width: 100px;
- }
-
-.logo:hover, .cart:hover {
-    transition: .4s;
-    opacity: .5;
 }
 
+.logo:hover,
+.cart:hover {
+    transition: 0.4s;
+    opacity: 0.5;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+}
+
+.search {
+    margin-right: -1.5vw;
+}
+
+.account {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 0.1;
+    color: #fff;
+}
