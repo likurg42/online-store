@@ -14,16 +14,22 @@ function ProductsList() {
         <div className={styles.products}>
             <ul className={`${styles.products__layout} ${layoutType}`}>
                 {filteredProducts.map((product) => {
-                    const { id, description, thumbnail, price, category } = product;
+                    const { id, description, thumbnail, price, category, stock, title, rating, brand, images } =
+                        product;
                     return (
                         <li key={id}>
                             <ProductCard
+                                title={title}
+                                stock={stock}
                                 layout={productsListView}
                                 description={description}
                                 thumbnail={thumbnail}
                                 price={price}
                                 category={category}
                                 id={id}
+                                rating={rating}
+                                brand={brand}
+                                images={images}
                             />
                         </li>
                     );

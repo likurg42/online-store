@@ -1,4 +1,4 @@
-import React, { useReducer, useMemo, useEffect, useCallback } from 'react';
+import React, { useReducer, useMemo, useEffect } from 'react';
 import reducer from '../reducers/productsReducer';
 import { PRODUCTS_URL } from '../utils/constants';
 import {
@@ -17,6 +17,7 @@ import {
     ProductsProviderProps,
     ProductsContextDispatcherAction,
     ProductsResponse,
+    ProductsContextUtils,
 } from '../types/contexts';
 
 const initalState: ProductsContextState = {
@@ -38,42 +39,40 @@ export function ProductsProvider(props: ProductsProviderProps) {
         initalState,
     );
 
-    const fetchProducts = useCallback(
-        async (url: string) => {
-            dispatch({ type: GET_PRODUCTS_BEGIN });
-            try {
-                const res = await fetch(url);
-                const data: ProductsResponse = await res.json();
-                const { products } = data;
-                dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
-            } catch (error) {
-                dispatch({ type: GET_PRODUCTS_ERROR });
-            }
-        },
-        [dispatch],
+    const productsContextUtils: ProductsContextUtils = useMemo(
+        () => ({
+            fetchProducts: async (url: string) => {
+                dispatch({ type: GET_PRODUCTS_BEGIN });
+                try {
+                    const res = await fetch(url);
+                    const data: ProductsResponse = await res.json();
+                    const { products } = data;
+                    dispatch({ type: GET_PRODUCTS_SUCCESS, payload: products });
+                } catch (error) {
+                    dispatch({ type: GET_PRODUCTS_ERROR });
+                }
+            },
+            fetchSingleProduct: async (url: string, id: number) => {
+                dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
+                try {
+                    const res = await fetch(`${url}${id}`);
+                    const product: Product = await res.json();
+                    dispatch({ type: GET_SINGLE_PRODUCT_SUCCESS, payload: product });
+                } catch (error) {
+                    dispatch({ type: GET_SINGLE_PRODUCT_ERROR });
+                }
+            },
+        }),
+        [],
     );
 
     useEffect(() => {
-        fetchProducts(PRODUCTS_URL);
-    }, [fetchProducts]);
-
-    const fetchSingleProduct = useCallback(
-        async (url: string, id: keyof Product) => {
-            dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
-            try {
-                const res = await fetch(`${url}${id}`);
-                const product: Product = await res.json();
-                dispatch({ type: GET_SINGLE_PRODUCT_SUCCESS, payload: product });
-            } catch (error) {
-                dispatch({ type: GET_SINGLE_PRODUCT_ERROR });
-            }
-        },
-        [dispatch],
-    );
+        productsContextUtils.fetchProducts(PRODUCTS_URL);
+    }, [productsContextUtils]);
 
     const context: ProductsContextInterface = useMemo(
-        () => ({ ...state, fetchSingleProduct }),
-        [state, fetchSingleProduct],
+        () => ({ ...state, ...productsContextUtils }),
+        [state, productsContextUtils],
     );
 
     return <ProductsContext.Provider value={context}>{children}</ProductsContext.Provider>;

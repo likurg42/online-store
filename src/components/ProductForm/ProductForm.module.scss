@@ -101,3 +101,19 @@
     display: flex;
     justify-content: space-between;
 }
+.productForm__btn {
+    margin: 0;
+    margin-top: 1rem;
+    font-family: var(--ff-main);
+    font-size: var(--fs-400);
+    padding: 0.5rem 1rem;
+    background-color: var(--clr-black);
+    color: var(--clr-white);
+    cursor: pointer;
+    transition: opacity ease 0.2s;
+    border: none;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}

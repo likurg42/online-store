@@ -14,7 +14,7 @@ import {
     UPDATE_FILTERS,
     FILTER_PRODUCTS,
     UPDATE_FILTERS_FROM_QUERY,
-    // CLEAR_FILTERS,
+    CLEAR_FILTERS,
 } from '../utils/actions';
 import sortProducts from '../utils/sortProducts';
 
@@ -61,7 +61,6 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
 
             if (name === 'currMinPrice') {
                 const parsedValue = parseInt(value, 10);
-                console.log('here', parsedValue);
 
                 if (parsedValue < state.filters.currMaxPrice - 100) {
                     return {
@@ -162,8 +161,14 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
                 filters: { ...state.filters, ...queryFilters },
             };
         }
-        default:
+        case CLEAR_FILTERS: {
+            const inititalState = action.payload as FilterContextState;
+            return { ...state, filters: inititalState.filters, queryFilters: inititalState.queryFilters };
+        }
+
+        default: {
             throw new Error(`No Mathcing "${action.type}" - action type `);
+        }
     }
 }
 

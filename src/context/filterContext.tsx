@@ -9,6 +9,7 @@ import {
     UPDATE_FILTERS,
     UPDATE_SORT,
     UPDATE_FILTERS_FROM_QUERY,
+    CLEAR_FILTERS,
 } from '../utils/actions';
 import {
     FilterContextState,
@@ -76,6 +77,9 @@ export function FilterProvider(props: FilterProviderProps) {
             updateFiltersFromQuery: (newFilters) => {
                 dispatch({ type: UPDATE_FILTERS_FROM_QUERY, payload: newFilters });
             },
+            clearFilters: () => {
+                dispatch({ type: CLEAR_FILTERS, payload: initialState });
+            },
         }),
         [],
     );
@@ -83,7 +87,7 @@ export function FilterProvider(props: FilterProviderProps) {
     useEffect(() => {
         dispatch({ type: FILTER_PRODUCTS });
         dispatch({ type: SORT_PRODUCTS });
-    }, [state.filters]);
+    }, [state.filters, state.queryFilters]);
 
     const context: FilterContextInterface = useMemo(() => ({ ...state, ...filterUtils }), [state, filterUtils]);
 

@@ -11,7 +11,7 @@ export interface Product {
     brand: string;
     category: string;
     thumbnail: string;
-    image: string[];
+    images: string[];
 }
 
 export interface ProductsResponse {
@@ -37,9 +37,12 @@ export interface ProductsContextDispatcherAction {
     payload?: Product | Product[];
 }
 
-export type ProductsContextInterface = ProductsContextState & {
-    fetchSingleProduct: (url: string, id: keyof Product) => Promise<void>;
-};
+interface ProductsContextUtils {
+    fetchProducts: (url: string) => Promise<void>;
+    fetchSingleProduct: (url: string, id: number) => Promise<void>;
+}
+
+export type ProductsContextInterface = ProductsContextState & ProductsContextUtils;
 
 /* Filter Context */
 type ProductsListView = 'grid' | 'list';
@@ -74,6 +77,7 @@ export interface FilterUtils {
     updateSort: React.ChangeEventHandler<HTMLSelectElement>;
     updateFilters: React.ChangeEventHandler<HTMLSelectElement | HTMLInputElement>;
     updateFiltersFromQuery: (newFilter: { [key: string]: string }) => void;
+    clearFilters: () => void;
 }
 
 export type FilterContextInterface = FilterContextState & FilterUtils;
@@ -90,5 +94,42 @@ export type FilterContextDispatcherAction = {
         | ProductsListView
         | { name: string; value: string }
         | Filters
-        | { [key: string]: string };
+        | { [key: string]: string }
+        | Partial<Filters>
+        | FilterContextState;
 };
+
+/* Cart context */
+
+export interface CartItem {
+    id: number;
+    title: string;
+    amount: number;
+    image: string;
+    price: number;
+    stock: number;
+}
+
+export type Cart = CartItem[];
+export interface CartContextState {
+    cart: Cart;
+    totalProducts: number;
+    totalAmount: number;
+    promo?: number;
+}
+
+export interface CartContextUtils {
+    addToCart: (id: number, amount: number, product: Product) => void;
+    removeFromCart: (id: number) => void;
+}
+
+export interface CartProviderProps {
+    children: ReactNode;
+}
+
+export interface CartContextDispatcherAction {
+    type: string;
+    payload?: number | { id: number; amount: number; product: Product };
+}
+
+export type CartContextInterface = CartContextState & CartContextUtils;
