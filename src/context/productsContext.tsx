@@ -57,7 +57,6 @@ export function ProductsProvider(props: ProductsProviderProps) {
                 try {
                     const res = await fetch(`${url}${id}`);
                     const product: Product = await res.json();
-                    console.log(product);
                     dispatch({ type: GET_SINGLE_PRODUCT_SUCCESS, payload: product });
                 } catch (error) {
                     dispatch({ type: GET_SINGLE_PRODUCT_ERROR });

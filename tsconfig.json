@@ -21,8 +21,6 @@
     "removeComments": true,
     "jsx": "react",
     "skipLibCheck": true,
-    "declaration": true,
-    "declarationMap": true,
     "typeRoots": [
       "./src/types",
       "./node_modules/@types"

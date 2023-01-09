@@ -19,13 +19,9 @@ function SingleProductPage() {
     useEffect(() => {
         if (!singleProduct ?? singleProduct?.id !== id) {
             fetchSingleProduct(PRODUCTS_URL, id);
-
-            console.log(id);
         }
 
         if (singleProduct?.id !== id) {
-            console.log(id, 'new');
-
             fetchSingleProduct(PRODUCTS_URL, id);
         }
     }, [id, fetchSingleProduct, singleProduct]);

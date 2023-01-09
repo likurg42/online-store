@@ -29,7 +29,6 @@ const productsReducer = (
                 isSingleProductError: false,
             };
         case GET_SINGLE_PRODUCT_SUCCESS:
-            console.log('successs');
             return {
                 ...state,
                 isSingleProductLoading: false,
