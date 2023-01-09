@@ -7,5 +7,6 @@ module.exports = {
         port: 9000,
         hot: true,
         watchFiles: path.join(__dirname, 'src', '**.html'),
+        historyApiFallback: true,
     },
 };

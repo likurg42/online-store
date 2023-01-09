@@ -36,6 +36,10 @@
     max-height: 18.75rem;
     object-fit: cover;
     border-bottom: 1px solid var(--clr-black);
+    transition: filter ease 0.2s;
+    &:hover {
+        filter: brightness(70%);
+    }
 }
 
 .card__info {

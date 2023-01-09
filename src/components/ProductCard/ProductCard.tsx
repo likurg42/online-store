@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './ProductCard.module.scss';
 import formatPrice from '../../utils/formatPrice';
 import { ProductCardProps } from '../../types/components';
@@ -38,7 +39,9 @@ function ProductCard({
 
     return (
         <p className={`${styles.card} ${layoutType}`} data-id={id}>
-            <img className={styles.card__thumbnail} src={thumbnail} alt="title" />
+            <Link to={`/product/${id}`}>
+                <img className={styles.card__thumbnail} src={thumbnail} alt="title" />
+            </Link>
             <span className={styles.card__info}>
                 <span className={styles.card__category}>{category}</span>
                 <span className={styles.card__description}>{description.substring(0, 150)}...</span>

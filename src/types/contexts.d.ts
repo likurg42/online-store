@@ -37,9 +37,12 @@ export interface ProductsContextDispatcherAction {
     payload?: Product | Product[];
 }
 
-export type ProductsContextInterface = ProductsContextState & {
-    fetchSingleProduct: (url: string, id: keyof Product) => Promise<void>;
-};
+interface ProductsContextUtils {
+    fetchProducts: (url: string) => Promise<void>;
+    fetchSingleProduct: (url: string, id: number) => Promise<void>;
+}
+
+export type ProductsContextInterface = ProductsContextState & ProductsContextUtils;
 
 /* Filter Context */
 type ProductsListView = 'grid' | 'list';
