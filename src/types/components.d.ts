@@ -15,3 +15,7 @@ export interface ProductCardProps {
     brand: string;
     images: string[];
 }
+
+export interface BreadcrumbsProps {
+    title: string;
+}

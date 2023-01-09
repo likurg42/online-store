@@ -22,3 +22,4 @@ export const TOGGLE_CART_ITEM: Action = 'REMOVE_CART_ITEM';
 export const TOGGLE_CART_ITEM_AMOUNT: Action = 'TOGGLE_CART_ITEM_AMOUNT';
 export const CLEART_CART: Action = 'CLEAR_CART';
 export const COUNT_CART_TOTALS: Action = 'COUNT_CART_TOTALS';
+export const UPDATE_CART_ITEM_AMOUNT: Action = 'UPDATE_CART_ITEM_AMOUNT';

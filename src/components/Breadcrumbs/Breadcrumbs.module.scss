@@ -1,0 +1,20 @@
+.breadcrumbs {
+    display: flex;
+    gap: 1rem;
+    font-family: var(--ff-main);
+    font-size: var(--fs-600);
+}
+
+.breadcrumbs__link {
+    text-decoration: none;
+    color: var(--clr-main-2);
+}
+
+.breadcrumbs__current {
+    display: flex;
+    gap: 1rem;
+
+    &::before {
+        content: '/';
+    }
+}

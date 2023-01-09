@@ -121,6 +121,7 @@ export interface CartContextState {
 export interface CartContextUtils {
     addToCart: (id: number, amount: number, product: Product) => void;
     removeFromCart: (id: number) => void;
+    updateCartItemAmount: (id: number, value: number) => void;
 }
 
 export interface CartProviderProps {
@@ -129,7 +130,7 @@ export interface CartProviderProps {
 
 export interface CartContextDispatcherAction {
     type: string;
-    payload?: number | { id: number; amount: number; product: Product };
+    payload?: number | { id: number; amount: number; product: Product } | { id: number; value: number };
 }
 
 export type CartContextInterface = CartContextState & CartContextUtils;

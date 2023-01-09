@@ -1,0 +1,20 @@
+.changeAmount {
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+}
+
+.changeAmount__btn {
+    display: grid;
+    place-items: center;
+    padding: 0.4rem 0.4rem;
+
+    font-size: var(--fs-700);
+    color: var(--clr-white);
+    background-color: var(--clr-black);
+    border: none;
+
+    &:hover {
+        background-color: var(--clr-main-2);
+    }
+}
