@@ -1,0 +1,61 @@
+
+.main { 
+    margin: 0 auto;
+    width: 80vw;
+    text-transform: uppercase;
+    font-family: 'Oswald';
+}
+
+.h1 {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize ;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 68px;
+    font-style: normal;
+}
+.captions {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    line-height: 27px;
+    font-weight: 500;
+    color: #828282;
+    font-size: 18px;
+}
+
+.product {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 190px;
+    border-top: 1px solid #C4C4C4;
+    border-bottom: 1px solid #C4C4C4;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between ; 
+    padding-top: 20px;
+}
+
+.btn {
+    padding: 1rem 0;
+    min-width: 9.375rem;
+    font-family: var(--ff-main);
+    font-size: var(--fs-400);
+    font-weight: var(--fw-500);
+    background-color: var(--clr-black);
+    color: var(--clr-white);
+    text-transform: uppercase;
+    border: none;
+
+    &:hover {
+        background-color: var(--clr-main-2);
+        color: var(--clr-white);
+        cursor: pointer;
+    }
+}
