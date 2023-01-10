@@ -17,8 +17,31 @@
     height: 44px;
     transition: 0.4s;
 }
+.link {
+    all: unset;
+    cursor: pointer;
+}
 .cart {
-    width: 100px;
+    display: grid;
+    grid-template-areas: 'icon count' 'icon value';
+    align-items: center;
+    column-gap: 0.5rem;
+
+    color: var(--clr-white);
+    text-decoration: none;
+}
+
+.cart__icon {
+    display: block;
+    grid-area: icon;
+}
+
+.cart__count {
+    grid-area: count;
+}
+
+.cart__value {
+    grid-area: value;
 }
 
 .logo:hover,

@@ -1,3 +1,4 @@
+import { CLEART_CART } from '../utils/actions';
 import { CartItem } from '../types/contexts.d';
 import { ADD_TO_CART, COUNT_CART_TOTALS, REMOVE_CART_ITEM, UPDATE_CART_ITEM_AMOUNT } from '../utils/actions';
 import { CartContextState, CartContextDispatcherAction, Product } from '../types/contexts';
@@ -44,9 +45,9 @@ export default function filterReducer(state: CartContextState, action: CartConte
             const { totalProducts, totalAmount } = state.cart.reduce<{ [index: string]: number }>(
                 (acc, cartItem) => {
                     const { amount, price } = cartItem;
-                    const newTotalProdcuts = acc.totalProducts + amount;
+                    const newTotalProducts = acc.totalProducts + amount;
                     const newTotalAmount = acc.totalAmount + price * amount;
-                    return { totalAmount: newTotalProdcuts, totalProdcuts: newTotalAmount };
+                    return { totalAmount: newTotalAmount, totalProducts: newTotalProducts };
                 },
                 { totalProducts: 0, totalAmount: 0 },
             );
@@ -63,6 +64,9 @@ export default function filterReducer(state: CartContextState, action: CartConte
                 return item;
             });
             return { ...state, cart: newCart };
+        }
+        case CLEART_CART: {
+            return { ...state, cart: [] };
         }
         default:
             throw new Error(`There is no such action ${action.type}`);
