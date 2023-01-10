@@ -170,12 +170,15 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
                 ...(queryFilters.text && queryFilters.text !== '' && { text: queryFilters.text }),
                 ...(queryFilters.brand && queryFilters.brand !== 'all' && { brand: queryFilters.brand }),
                 ...(queryFilters.category && queryFilters.category !== 'all' && { category: queryFilters.category }),
+                ...(queryFilters.productsListView && { productsListView: queryFilters.productsListView }),
+                ...(queryFilters.sort && { sort: queryFilters.sort }),
                 ...(queryFilters.currMaxPrice && { currMaxPrice: parseInt(queryFilters.currMaxPrice, 10) }),
                 ...(queryFilters.currMinPrice && { currMinPrice: parseInt(queryFilters.currMinPrice, 10) }),
                 ...(queryFilters.currMinStock && { currMinStock: parseInt(queryFilters.currMinStock, 10) }),
                 ...(queryFilters.currMaxStock && { currMaxStock: parseInt(queryFilters.currMaxStock, 10) }),
             } as Filters;
 
+            console.log(parsedFilters, '1');
             return {
                 ...state,
                 queryFilters,
@@ -184,7 +187,7 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
         }
         case CLEAR_FILTERS: {
             const inititalState = action.payload as FilterContextState;
-            return { ...state, filters: inititalState.filters, queryFilters: inititalState.queryFilters };
+            return { ...state, filters: inititalState.filters, queryFilters: {} };
         }
 
         default: {

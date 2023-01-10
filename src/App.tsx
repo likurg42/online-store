@@ -1,11 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import { Header } from './components';
 import { CartPage, ErrorPage, ProductsPage, SingleProductPage } from './pages/index';
 
 export default function App() {
     return (
-        <BrowserRouter basename="/online-store">
+        <HashRouter basename="">
             <Header />
             <Routes>
                 <Route path="/" element={<ProductsPage />} />
@@ -13,6 +13,6 @@ export default function App() {
                 <Route path="/product/:id" element={<SingleProductPage />} />
                 <Route path="*" element={<ErrorPage />} />
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     );
 }

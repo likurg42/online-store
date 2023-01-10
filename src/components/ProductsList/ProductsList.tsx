@@ -7,7 +7,7 @@ import useFilterContext from '../../hooks/useFilterContext';
 function ProductsList() {
     const { filters, filteredProducts } = useFilterContext() as FilterContextInterface;
     const { productsListView } = filters;
-
+    console.log(filteredProducts);
     const layoutType =
         productsListView === 'grid' ? styles['products__layout--grid'] : styles['products__layout--list'];
     return (
