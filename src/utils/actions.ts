@@ -15,6 +15,7 @@ export const UPDATE_FILTERS: Action = 'UPDATE_FILTERS';
 export const UPDATE_FILTERS_FROM_QUERY: Action = 'UPDATE_FILTERS_FROM_QUERY';
 export const FILTER_PRODUCTS: Action = 'FILTER_PRODUCTS';
 export const CLEAR_FILTERS: Action = 'CLEAR_FILTERS';
+export const UPDATE_QUERY_FILTERS: Action = 'UPDATE_QUERY_FILTERS';
 /* Cart */
 export const ADD_TO_CART: Action = 'ADD_TO_CART';
 export const REMOVE_CART_ITEM: Action = 'REMOVE_CART_ITEM';

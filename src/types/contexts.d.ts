@@ -59,6 +59,18 @@ export interface Filters {
     sort: Sort;
 }
 
+export interface QueryFilters {
+    text?: string;
+    brand?: 'all' | string;
+    category?: 'all' | string;
+    currMinPrice?: string;
+    currMaxPrice?: string;
+    currMinStock?: string;
+    currMaxStock?: string;
+    productsListView?: ProductsListView;
+    sort?: Sort;
+}
+
 export interface FilterContextState {
     filteredProducts: Product[];
     allProducts: Product[];
@@ -69,13 +81,14 @@ export interface FilterContextState {
     maxPrice: number;
     minStock: number;
     maxStock: number;
-    queryFilters: Partial<Filters>;
+    queryFilters: QueryFilters;
 }
 
 export interface FilterUtils {
     setView: React.ChangeEventHandler<HTMLSelectElement>;
     updateSort: React.ChangeEventHandler<HTMLSelectElement>;
     updateFilters: React.ChangeEventHandler<HTMLSelectElement | HTMLInputElement>;
+    updateQueryFilters: (name: string, value: number | string) => void;
     updateFiltersFromQuery: (newFilter: { [key: string]: string }) => void;
     clearFilters: () => void;
 }
@@ -92,11 +105,13 @@ export type FilterContextDispatcherAction = {
         | string
         | product[]
         | ProductsListView
-        | { name: string; value: string }
+        | { name: string; value: string | number }
         | Filters
+        | QueryFilters
         | { [key: string]: string }
         | Partial<Filters>
-        | FilterContextState;
+        | FilterContextState
+        | { name: string; value: number };
 };
 
 /* Cart context */

@@ -16,6 +16,7 @@ export default function ProductForm() {
         maxPrice,
         queryFilters,
         clearFilters,
+        updateQueryFilters,
     } = useFilterContext() as FilterContextInterface;
     const { text, currMinPrice, currMaxPrice, currMaxStock, currMinStock, brand, category } = filters;
 
@@ -23,17 +24,21 @@ export default function ProductForm() {
 
     const updateQuery = useCallback(() => {
         const newSearchParams = new URLSearchParams();
+
         Object.entries(queryFilters).forEach(([name, value]) => {
             newSearchParams.append(name, String(value));
         });
+
         setSearchParams(newSearchParams);
     }, [queryFilters, setSearchParams]);
 
     useEffect(() => {
         if (Object.keys(queryFilters).length > 0) {
             updateQuery();
+        } else {
+            setSearchParams(new URLSearchParams(''));
         }
-    }, [queryFilters, updateQuery]);
+    }, [queryFilters, updateQuery, setSearchParams]);
 
     return (
         <form className={styles.productForm}>
@@ -45,7 +50,11 @@ export default function ProductForm() {
                     name="text"
                     className={styles.productForm__search}
                     placeholder="Search..."
-                    onChange={updateFilters}
+                    onChange={(e) => {
+                        updateFilters(e);
+                        const { name, value } = e.target as HTMLInputElement;
+                        updateQueryFilters(name, value);
+                    }}
                     value={text}
                 />
             </label>
@@ -56,7 +65,11 @@ export default function ProductForm() {
                     id="brand"
                     className={styles.productForm__select}
                     value={brand}
-                    onChange={updateFilters}
+                    onChange={(e) => {
+                        updateFilters(e);
+                        const { name, value } = e.target as HTMLSelectElement;
+                        updateQueryFilters(name, value);
+                    }}
                 >
                     {brands.map((brandItem) => (
                         <option key={brandItem} value={brandItem}>
@@ -72,7 +85,11 @@ export default function ProductForm() {
                     id="category"
                     className={styles.productForm__select}
                     value={category}
-                    onChange={updateFilters}
+                    onChange={(e) => {
+                        updateFilters(e);
+                        const { name, value } = e.target as HTMLSelectElement;
+                        updateQueryFilters(name, value);
+                    }}
                 >
                     {categories.map((categoryItem) => (
                         <option key={categoryItem} value={categoryItem}>
@@ -99,6 +116,10 @@ export default function ProductForm() {
                         name="currMinPrice"
                         className={styles.productForm__range}
                         onChange={updateFilters}
+                        onMouseUp={(e) => {
+                            const { name, value } = e.target as HTMLInputElement;
+                            updateQueryFilters(name, parseInt(value, 10));
+                        }}
                         min={minPrice}
                         max={maxPrice}
                         value={currMinPrice}
@@ -110,6 +131,10 @@ export default function ProductForm() {
                         name="currMaxPrice"
                         className={styles.productForm__range}
                         onChange={updateFilters}
+                        onMouseUp={(e) => {
+                            const { name, value } = e.target as HTMLInputElement;
+                            updateQueryFilters(name, parseInt(value, 10));
+                        }}
                         min={minPrice}
                         max={maxPrice}
                         value={currMaxPrice || maxPrice}
@@ -135,6 +160,10 @@ export default function ProductForm() {
                         name="currMinStock"
                         className={styles.productForm__range}
                         onChange={updateFilters}
+                        onMouseUp={(e) => {
+                            const { name, value } = e.target as HTMLInputElement;
+                            updateQueryFilters(name, parseInt(value, 10));
+                        }}
                         min={minStock}
                         max={maxStock}
                         value={currMinStock}
@@ -146,6 +175,10 @@ export default function ProductForm() {
                         name="currMaxStock"
                         className={styles.productForm__range}
                         onChange={updateFilters}
+                        onMouseUp={(e) => {
+                            const { name, value } = e.target as HTMLInputElement;
+                            updateQueryFilters(name, parseInt(value, 10));
+                        }}
                         min={minStock}
                         max={maxStock}
                         value={currMaxStock || maxStock}

@@ -15,7 +15,7 @@ export default function ProductsPage() {
             parsedUrl[key] = value;
         });
         updateFiltersFromQuery(parsedUrl);
-    }, [searchParams, updateFiltersFromQuery]);
+    }, []);
 
     return (
         <main className="container">

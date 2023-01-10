@@ -10,6 +10,7 @@ import {
     UPDATE_SORT,
     UPDATE_FILTERS_FROM_QUERY,
     CLEAR_FILTERS,
+    UPDATE_QUERY_FILTERS,
 } from '../utils/actions';
 import {
     FilterContextState,
@@ -71,6 +72,12 @@ export function FilterProvider(props: FilterProviderProps) {
                 const { name, value } = e.target;
                 dispatch({
                     type: UPDATE_FILTERS,
+                    payload: { name, value },
+                });
+            },
+            updateQueryFilters: (name, value) => {
+                dispatch({
+                    type: UPDATE_QUERY_FILTERS,
                     payload: { name, value },
                 });
             },

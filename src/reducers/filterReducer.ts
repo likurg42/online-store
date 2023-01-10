@@ -5,6 +5,7 @@ import {
     ProductsListView,
     Sort,
     Filters,
+    QueryFilters,
 } from '../types/contexts.d';
 import {
     LOAD_PRODUCTS,
@@ -15,6 +16,7 @@ import {
     FILTER_PRODUCTS,
     UPDATE_FILTERS_FROM_QUERY,
     CLEAR_FILTERS,
+    UPDATE_QUERY_FILTERS,
 } from '../utils/actions';
 import sortProducts from '../utils/sortProducts';
 
@@ -61,12 +63,10 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
 
             if (name === 'currMinPrice') {
                 const parsedValue = parseInt(value, 10);
-
-                if (parsedValue < state.filters.currMaxPrice - 100) {
+                if (parsedValue) {
                     return {
                         ...state,
                         filters: { ...state.filters, [name]: parsedValue },
-                        queryFilters: { ...state.queryFilters, [name]: parsedValue },
                     };
                 }
 
@@ -74,13 +74,11 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
             }
 
             if (name === 'currMaxPrice') {
-                const parsedValue = parseInt(value, 10);
-
+                const parsedValue = parseInt(value, 10) || state.maxPrice;
                 if (parsedValue > state.filters.currMinPrice + 100) {
                     return {
                         ...state,
                         filters: { ...state.filters, [name]: parsedValue },
-                        queryFilters: { ...state.queryFilters, [name]: parsedValue },
                     };
                 }
 
@@ -89,11 +87,10 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
             if (name === 'currMinStock') {
                 const parsedValue = parseInt(value, 10);
 
-                if (parsedValue < state.filters.currMaxStock - 10) {
+                if (parsedValue < (state.filters.currMaxStock || state.maxStock) - 10) {
                     return {
                         ...state,
                         filters: { ...state.filters, [name]: parsedValue },
-                        queryFilters: { ...state.queryFilters, [name]: parsedValue },
                     };
                 }
 
@@ -106,7 +103,6 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
                     return {
                         ...state,
                         filters: { ...state.filters, [name]: parsedValue },
-                        queryFilters: { ...state.queryFilters, [name]: parsedValue },
                     };
                 }
 
@@ -116,8 +112,24 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
             return {
                 ...state,
                 filters: { ...state.filters, [name]: value },
-                queryFilters: { ...state.queryFilters, [name]: value },
             };
+        }
+        case UPDATE_QUERY_FILTERS: {
+            const { name, value } = action.payload as { name: keyof Filters; value: string };
+
+            if (
+                value === 'all' ||
+                value === '' ||
+                parseInt(value, 10) === state.maxPrice ||
+                parseInt(value, 10) === state.minPrice
+            ) {
+                const { [name]: deletedKey, ...newQueryFilters } = state.queryFilters;
+                console.log(newQueryFilters);
+
+                return { ...state, queryFilters: newQueryFilters };
+            }
+
+            return { ...state, queryFilters: { ...state.queryFilters, [name]: value } };
         }
         case FILTER_PRODUCTS: {
             const {
@@ -154,11 +166,21 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
             };
         }
         case UPDATE_FILTERS_FROM_QUERY: {
-            const queryFilters = action.payload as { [key: string]: string };
+            const queryFilters = action.payload as QueryFilters;
+            const parsedFilters = {
+                ...(queryFilters.text && queryFilters.text !== '' && { text: queryFilters.text }),
+                ...(queryFilters.brand && queryFilters.brand !== 'all' && { brand: queryFilters.brand }),
+                ...(queryFilters.category && queryFilters.category !== 'all' && { category: queryFilters.category }),
+                ...(queryFilters.currMaxPrice && { currMaxPrice: parseInt(queryFilters.currMaxPrice, 10) }),
+                ...(queryFilters.currMinPrice && { currMinPrice: parseInt(queryFilters.currMinPrice, 10) }),
+                ...(queryFilters.currMinStock && { currMinStock: parseInt(queryFilters.currMinStock, 10) }),
+                ...(queryFilters.currMaxStock && { currMaxStock: parseInt(queryFilters.currMaxStock, 10) }),
+            } as Filters;
+
             return {
                 ...state,
-                queryFilters: { ...state.queryFilters, ...queryFilters },
-                filters: { ...state.filters, ...queryFilters },
+                queryFilters,
+                filters: { ...state.filters, ...parsedFilters },
             };
         }
         case CLEAR_FILTERS: {
