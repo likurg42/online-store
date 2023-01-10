@@ -124,7 +124,6 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
                 parseInt(value, 10) === state.minPrice
             ) {
                 const { [name]: deletedKey, ...newQueryFilters } = state.queryFilters;
-                console.log(newQueryFilters);
 
                 return { ...state, queryFilters: newQueryFilters };
             }

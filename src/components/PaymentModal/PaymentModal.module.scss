@@ -1,0 +1,95 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--ff-main);
+    font-size: var(--fs-600);
+    background-color: rgba(0, 0, 0, 0.4);
+    pointer-events: fill;
+}
+
+.modal--open {
+    display: flex;
+}
+
+.modal__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    width: 100%;
+    margin: 0 1rem;
+    max-width: 700px;
+    padding: 30px;
+    border: 1px solid #000;
+    background-color: #fff;
+}
+
+.modal__content--success {
+    text-align: center;
+}
+
+.modal__closeButton {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.modal__title {
+    font-size: var(--fs-800);
+}
+
+.modal__input {
+    padding: 0.5rem;
+    border: 1px solid var(--clr-border);
+    border-radius: none;
+    width: 100%;
+
+    &:focus,
+    &:active {
+        outline: none;
+        border-color: var(--clr-black);
+    }
+}
+
+.modal__input--error {
+    border-color: var(--clr-main-2);
+}
+
+.modal__payButton {
+    background: var(--clr-black);
+    padding: 1rem;
+    color: white;
+    border: 1px solid var(--clr-black);
+
+    &:active {
+        background: var(--clr-main-2);
+        color: var(--clr-black);
+    }
+}
+
+.modal__splitLayout {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: var(--gap);
+    justify-content: flex-end;
+
+    > * {
+        width: 50%;
+    }
+}
+
+.modal__error {
+    margin-top: -0.5rem;
+    font-size: var(--fs-400);
+    color: var(--clr-main-2);
+}
