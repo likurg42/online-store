@@ -5,7 +5,7 @@ import { CartPage, ErrorPage, ProductsPage, SingleProductPage } from './pages/in
 
 export default function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/online-store">
             <Header />
             <Routes>
                 <Route path="/" element={<ProductsPage />} />
