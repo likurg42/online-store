@@ -18,9 +18,13 @@ export default function CartPage() {
                     <div className={cl.product__title}>test</div>
                     <div className={cl.product__price}>test</div>
                     <div className={cl.product__size}>test</div>
-                    <div className={cl.product__counter}>cointer</div>
+                    <div className={cl.product__counter}>
+                        <span className={cl.product__decrement}>&#8722;</span>
+                        <span className={cl.product__result}>1</span>
+                        <span className={cl.product__increment}>&#43;</span>
+                    </div>
                     <div className={cl.product__total}>test</div>
-                    <div className={cl.product__remove}>x</div>
+                    <div className={cl.product__remove}>&#10006;</div>
                 </div>
                 <div className={cl.buttons}>
                     <button className={cl.btn} type="button">
