@@ -122,6 +122,7 @@ export interface CartContextUtils {
     addToCart: (id: number, amount: number, product: Product) => void;
     removeFromCart: (id: number) => void;
     updateCartItemAmount: (id: number, value: number) => void;
+    clearCart: () => void;
 }
 
 export interface CartProviderProps {

@@ -7,6 +7,8 @@
     --clr-white: white;
     --clr-main-2: #eb5757;
     --clr-gray-400: #bdbdbd;
+    --clr-light-blue: #f0f2f2;
+    --clr-border: #c4c4c4;
     /* Typography */
     --ff-main: Oswald, sans-serif;
     --fs-300: 0.75rem;
@@ -14,6 +16,7 @@
     --fs-500: 1rem;
     --fs-600: 1.125rem;
     --fs-700: 1.375rem;
+    --fs-800: 1.5rem;
 
     --fw-300: 300;
     --fw-400: 400;
@@ -31,4 +34,7 @@ html {
 .container {
     width: clamp(16rem, 95vw, 70rem);
     margin: 0 auto;
+}
+.main-section {
+    min-height: 100vh;
 }

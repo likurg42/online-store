@@ -8,7 +8,13 @@ import {
     CartProviderProps,
     Product,
 } from '../types/contexts';
-import { ADD_TO_CART, COUNT_CART_TOTALS, REMOVE_CART_ITEM, UPDATE_CART_ITEM_AMOUNT } from '../utils/actions';
+import {
+    ADD_TO_CART,
+    CLEART_CART,
+    COUNT_CART_TOTALS,
+    REMOVE_CART_ITEM,
+    UPDATE_CART_ITEM_AMOUNT,
+} from '../utils/actions';
 
 import reducer from '../reducers/cartReducer';
 
@@ -42,6 +48,9 @@ export function CartProvider(props: CartProviderProps) {
             },
             updateCartItemAmount: (id: number, value: number) => {
                 dispatch({ type: UPDATE_CART_ITEM_AMOUNT, payload: { id, value } });
+            },
+            clearCart: () => {
+                dispatch({ type: CLEART_CART });
             },
         }),
         [],
