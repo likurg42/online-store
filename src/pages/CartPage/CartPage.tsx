@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from './CartPage.module.scss';
 import useCartContext from '../../hooks/useCartContext';
 import { CartContextInterface } from '../../types/contexts';
-import { ChangeAmount } from '../../components';
+import { ChangeAmount, PaymentModal } from '../../components';
 import formatPrice from '../../utils/formatPrice';
 
 export default function CartPage() {
     const { cart, totalAmount, totalProducts, removeFromCart, clearCart } = useCartContext() as CartContextInterface;
+    const [open, setModal] = useState(false);
 
     return (
         <section className="main-section container">
@@ -84,10 +85,22 @@ export default function CartPage() {
                                     <span>{formatPrice(totalAmount)}</span>
                                 </p>
                             </div>
-                            <button type="button" className={style['cart-form__btn']}>
+                            <button
+                                type="button"
+                                className={style['cart-form__btn']}
+                                onClick={() => {
+                                    setModal(true);
+                                }}
+                            >
                                 proceed to checkout
                             </button>
                         </form>
+                        <PaymentModal
+                            open={open}
+                            onClose={() => {
+                                setModal(false);
+                            }}
+                        />
                     </div>
                 </div>
             </main>
