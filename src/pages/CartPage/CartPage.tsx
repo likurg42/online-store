@@ -7,10 +7,31 @@ import { ChangeAmount, PaymentModal } from '../../components';
 import formatPrice from '../../utils/formatPrice';
 
 export default function CartPage() {
-    const { cart, totalAmount, totalProducts, removeFromCart, clearCart } = useCartContext() as CartContextInterface;
+    const {
+        cart,
+        totalAmount,
+        promocodes,
+        totalProducts,
+        removeFromCart,
+        clearCart,
+        getCartFinalAmount,
+        togglePromocode,
+    } = useCartContext() as CartContextInterface;
     const location = useLocation();
     const [open, setModal] = useState(location.state?.open ?? false);
     const [pagination, setPagination] = useState({ currPage: 1, numberOfPages: 1, numberOfItemsOnPage: 3 });
+    const [promoPreview, setPromoPreview] = useState({ show: false, name: '', id: 0 });
+    const { finalAmount, discountValue } = getCartFinalAmount();
+
+    const promocodeInputHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        const { value } = e.target;
+        const promocode = promocodes.find(({ name }) => name === value);
+        if (promocode) {
+            setPromoPreview({ name: promocode.name, show: true, id: promocode.id });
+        } else {
+            setPromoPreview({ name: '', show: false, id: 0 });
+        }
+    };
 
     const getLastPage = useCallback((numberOfItems: number, cartLength: number) => {
         let lastPage = 0;
@@ -47,6 +68,7 @@ export default function CartPage() {
 
     useEffect(() => {
         paginationHandler();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cart]);
 
     if (cart.length === 0) {
@@ -151,32 +173,96 @@ export default function CartPage() {
                         </Link>
                     </div>
                     <div className={style['forms-section']}>
-                        <div className={style['cart-form']}>
-                            <div className={style['cart-form__inner']}>
-                                <p className={style['cart-form__item']}>
+                        <div className={style.cartForm}>
+                            <div className={style.cartForm__inner}>
+                                <p className={style.cartForm__item}>
                                     <span>Apply Discount Code</span>
                                 </p>
-                                <p className={style['cart-form__item']}>
-                                    <input className={style['cart-form__input']} type="text" placeholder="Promocode" />
+                                <p className={style.cartForm__item}>
+                                    <input
+                                        className={style.cartForm__input}
+                                        type="text"
+                                        placeholder="Promocode"
+                                        onChange={promocodeInputHandler}
+                                    />
                                 </p>
+                                <span className={style.cartForm__promos}>
+                                    {promoPreview.show
+                                        ? promocodes.map((promo) => {
+                                              const { name, id, active } = promo;
+
+                                              if (promoPreview.id === id && !active) {
+                                                  return (
+                                                      <span key={id} className={style.cartForm__promo}>
+                                                          <span>{name}</span>
+
+                                                          <button
+                                                              className={style.cartForm__btn}
+                                                              type="button"
+                                                              onClick={() => togglePromocode(id, true)}
+                                                          >
+                                                              ADD
+                                                          </button>
+                                                      </span>
+                                                  );
+                                              }
+
+                                              return '';
+                                          })
+                                        : ''}
+                                </span>
+                                <span>
+                                    Promos for test:{' '}
+                                    {promocodes.map(({ name, id }) => (
+                                        <span key={id}>{name} </span>
+                                    ))}
+                                </span>
+                                <ul className={style.cartForm__promos}>
+                                    {promocodes.map(({ id, name, active }) => {
+                                        if (active) {
+                                            return (
+                                                <li key={id} className={style.cartForm__promo}>
+                                                    <span>{name}</span>
+
+                                                    <button
+                                                        className={style.cartForm__btn}
+                                                        type="button"
+                                                        onClick={() => {
+                                                            togglePromocode(id, false);
+                                                        }}
+                                                    >
+                                                        DROP
+                                                    </button>
+                                                </li>
+                                            );
+                                        }
+                                        return '';
+                                    })}
+                                </ul>
                             </div>
-                            <button type="button" className={style['cart-form__btn']}>
-                                apply promocode
-                            </button>
                         </div>
-                        <div className={style['cart-form']}>
-                            <div className={style['cart-form__inner']}>
-                                <p className={style['cart-form__item']}>
+                        <div className={style.cartForm}>
+                            <div className={style.cartForm__inner}>
+                                <p className={style.cartForm__item}>
                                     <span>Order Total</span>
                                 </p>
-                                <p className={style['cart-form__item']}>
+                                <p className={style.cartForm__item}>
                                     <span>Items: {totalProducts}</span>
-                                    <span>{formatPrice(totalAmount)}</span>
+                                    <span className={style.cartForm__amountLayout}>
+                                        <span className={style.cartForm__amount}>
+                                            {discountValue === 0 ? '' : `Total: ${totalAmount}`}
+                                        </span>
+                                        <span className={style.cartForm__finalAmount}>
+                                            {' '}
+                                            Final: {formatPrice(finalAmount)}
+                                        </span>
+                                    </span>
+                                    <span>{discountValue > 0 ? `Discount: ${formatPrice(discountValue)}` : ''}</span>
                                 </p>
                             </div>
                             <button
                                 type="button"
-                                className={style['cart-form__btn']}
+                                className={[style.cartForm__btn, style.cartForm__btn_submit].join(' ')}
                                 onClick={() => {
                                     setModal(true);
                                 }}

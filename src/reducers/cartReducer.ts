@@ -1,6 +1,12 @@
 import { CLEART_CART } from '../utils/actions';
 import { CartItem } from '../types/contexts.d';
-import { ADD_TO_CART, COUNT_CART_TOTALS, REMOVE_CART_ITEM, UPDATE_CART_ITEM_AMOUNT } from '../utils/actions';
+import {
+    ADD_TO_CART,
+    COUNT_CART_TOTALS,
+    REMOVE_CART_ITEM,
+    UPDATE_CART_ITEM_AMOUNT,
+    APPLY_PROMOCODE,
+} from '../utils/actions';
 import { CartContextState, CartContextDispatcherAction, Product } from '../types/contexts';
 
 export default function filterReducer(state: CartContextState, action: CartContextDispatcherAction): CartContextState {
@@ -67,6 +73,16 @@ export default function filterReducer(state: CartContextState, action: CartConte
         }
         case CLEART_CART: {
             return { ...state, cart: [] };
+        }
+        case APPLY_PROMOCODE: {
+            const { id, isActive } = action.payload as { id: number; isActive: boolean };
+            const promocodes = state.promocodes.map((promocode) => {
+                if (promocode.id === id) return { ...promocode, active: isActive };
+                return promocode;
+            });
+            console.log(promocodes);
+
+            return { ...state, promocodes };
         }
         default:
             throw new Error(`There is no such action ${action.type}`);

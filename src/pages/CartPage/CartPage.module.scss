@@ -128,12 +128,12 @@
     gap: var(--gap);
 }
 
-.cart-form {
+.cartForm {
     display: flex;
     flex-direction: column;
     align-items: stretch;
 }
-.cart-form__inner {
+.cartForm__inner {
     display: flex;
     flex-direction: column;
     padding: 2.3125rem;
@@ -142,16 +142,16 @@
     border: 1px solid var(--clr-border);
 }
 
-.cart-form__item {
+.cartForm__item {
     display: flex;
     margin: 0;
     justify-content: space-between;
     font-weight: var(--fw-400);
     font-size: var(--fs-800);
-    height: 1.375rem;
 }
-.cart-form__btn {
-    padding: 19.5px 0;
+
+.cartForm__btn {
+    padding: 0.2rem;
     background: var(--clr-black);
     font-size: var(--fs-400);
     color: var(--clr-white);
@@ -164,7 +164,11 @@
     }
 }
 
-.cart-form__input {
+.cartForm__btn_submit {
+    padding: 1.2188rem 0;
+}
+
+.cartForm__input {
     background-color: var(--clr-white);
     color: var(--clr-black);
     border: 1px solid var(--clr-border);
@@ -172,10 +176,35 @@
     padding: 1rem;
 }
 
+.cartForm__promos {
+    display: flex;
+    gap: var(--gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
 .pagination {
     display: flex;
     gap: var(--gap);
     align-items: center;
+}
+
+.cartForm__promo {
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+    margin: 0;
+    padding: 0;
+}
+
+.cartForm__amount {
+    text-decoration: line-through;
+}
+
+.cartForm__amountLayout {
+    display: flex;
+    flex-direction: column;
 }
 
 .pagination__numberOfItems {

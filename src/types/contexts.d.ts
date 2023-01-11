@@ -126,17 +126,26 @@ export interface CartItem {
 }
 
 export type Cart = CartItem[];
+
+export type PromoCode = {
+    name: string;
+    discountValue: number;
+    id: number;
+    active: boolean;
+};
 export interface CartContextState {
     cart: Cart;
     totalProducts: number;
     totalAmount: number;
-    promo?: number;
+    promocodes: PromoCode[];
 }
 
 export interface CartContextUtils {
     addToCart: (id: number, amount: number, product: Product) => void;
     removeFromCart: (id: number) => void;
     updateCartItemAmount: (id: number, value: number) => void;
+    togglePromocode: (id: number, isActive: boolean) => void;
+    getCartFinalAmount: () => { finalAmount: number; discountValue: number };
     clearCart: () => void;
 }
 
@@ -146,7 +155,11 @@ export interface CartProviderProps {
 
 export interface CartContextDispatcherAction {
     type: string;
-    payload?: number | { id: number; amount: number; product: Product } | { id: number; value: number };
+    payload?:
+        | number
+        | { id: number; amount: number; product: Product }
+        | { id: number; value: number }
+        | { id: number; isActive: boolean };
 }
 
 export type CartContextInterface = CartContextState & CartContextUtils;
