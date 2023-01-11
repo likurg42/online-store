@@ -68,8 +68,7 @@ export function FilterProvider(props: FilterProviderProps) {
                 const { value } = e.target;
                 dispatch({ type: SET_VIEW, payload: value });
             },
-            updateFilters: (e) => {
-                const { name, value } = e.target;
+            updateFilters: (name, value) => {
                 dispatch({
                     type: UPDATE_FILTERS,
                     payload: { name, value },

@@ -17,11 +17,30 @@ export default function ProductForm() {
         brands,
         categories,
         clearFilters,
+        filteredProducts,
         updateQueryFilters,
     } = useFilterContext() as FilterContextInterface;
-    const { text, currMinPrice, currMaxPrice, currMaxStock, currMinStock, brand, category } = filters;
-
+    const { text, brand, category } = filters;
+    let { currMaxPrice, currMinPrice, currMaxStock, currMinStock } = filters;
     const [, setSearchParams] = useSearchParams();
+    const filteredBrands = filteredProducts.map((p) => p.brand);
+    const filteredCategories = filteredProducts.map((p) => p.category);
+    currMaxPrice = filteredProducts.reduce((acc, product) => {
+        if (acc < product.price) return product.price;
+        return acc;
+    }, 0);
+    currMinPrice = filteredProducts.reduce((acc, product) => {
+        if (acc > product.price) return product.price;
+        return acc;
+    }, currMaxPrice);
+    currMaxStock = filteredProducts.reduce((acc, product) => {
+        if (acc < product.stock) return product.stock;
+        return acc;
+    }, 0);
+    currMinStock = filteredProducts.reduce((acc, product) => {
+        if (acc > product.stock) return product.stock;
+        return acc;
+    }, currMaxPrice);
 
     const updateQuery = useCallback(() => {
         const newSearchParams = new URLSearchParams();
@@ -52,9 +71,9 @@ export default function ProductForm() {
                     className={styles.productForm__search}
                     placeholder="Search..."
                     onChange={(e) => {
-                        updateFilters(e);
                         const { name, value } = e.target as HTMLInputElement;
                         updateQueryFilters(name, value);
+                        updateFilters(name, value);
                     }}
                     value={text}
                 />
@@ -67,16 +86,23 @@ export default function ProductForm() {
                     className={styles.productForm__select}
                     value={brand}
                     onChange={(e) => {
-                        updateFilters(e);
                         const { name, value } = e.target as HTMLSelectElement;
+                        updateFilters(name, value);
                         updateQueryFilters(name, value);
                     }}
                 >
-                    {brands.map((brandItem) => (
-                        <option key={brandItem} value={brandItem}>
-                            {brandItem}
-                        </option>
-                    ))}
+                    {brands.map((brandItem) => {
+                        const disabled = !filteredBrands.includes(brandItem);
+                        return (
+                            <option
+                                key={brandItem}
+                                value={brandItem}
+                                style={{ color: `${disabled ? 'rgb(235, 235, 228)' : 'black'}` }}
+                            >
+                                {brandItem}
+                            </option>
+                        );
+                    })}
                 </select>
             </label>
             <label className={styles.productForm__item} htmlFor="category">
@@ -87,16 +113,23 @@ export default function ProductForm() {
                     className={styles.productForm__select}
                     value={category}
                     onChange={(e) => {
-                        updateFilters(e);
                         const { name, value } = e.target as HTMLSelectElement;
+                        updateFilters(name, value);
                         updateQueryFilters(name, value);
                     }}
                 >
-                    {categories.map((categoryItem) => (
-                        <option key={categoryItem} value={categoryItem}>
-                            {categoryItem}
-                        </option>
-                    ))}
+                    {categories.map((categoryItem) => {
+                        const disabled = !filteredCategories.includes(categoryItem);
+                        return (
+                            <option
+                                key={categoryItem}
+                                value={categoryItem}
+                                style={{ color: disabled ? 'rgb(235, 235, 228)' : 'black' }}
+                            >
+                                {categoryItem}
+                            </option>
+                        );
+                    })}
                 </select>
             </label>
             <p className={styles.productForm__item}>
@@ -104,7 +137,7 @@ export default function ProductForm() {
 
                 <span className={styles.productForm__labelGroup}>
                     <label className={styles.productForm__label} htmlFor="currMinPrice">
-                        {currMinPrice}
+                        {currMinPrice || minPrice}
                     </label>
                     <label className={styles.productForm__label} htmlFor="currMaxPrice">
                         {currMaxPrice || maxPrice}
@@ -116,14 +149,17 @@ export default function ProductForm() {
                         type="range"
                         name="currMinPrice"
                         className={styles.productForm__range}
-                        onChange={updateFilters}
+                        onChange={(e) => {
+                            const { name, value } = e.target as HTMLInputElement;
+                            updateFilters(name, parseInt(value, 10));
+                        }}
                         onMouseUp={(e) => {
                             const { name, value } = e.target as HTMLInputElement;
                             updateQueryFilters(name, parseInt(value, 10));
                         }}
                         min={minPrice}
                         max={maxPrice}
-                        value={currMinPrice}
+                        value={minPrice || currMinPrice}
                         step="10"
                     />
                     <input
@@ -131,7 +167,10 @@ export default function ProductForm() {
                         type="range"
                         name="currMaxPrice"
                         className={styles.productForm__range}
-                        onChange={updateFilters}
+                        onChange={(e) => {
+                            const { name, value } = e.target as HTMLInputElement;
+                            updateFilters(name, parseInt(value, 10));
+                        }}
                         onMouseUp={(e) => {
                             const { name, value } = e.target as HTMLInputElement;
                             updateQueryFilters(name, parseInt(value, 10));
@@ -160,7 +199,10 @@ export default function ProductForm() {
                         type="range"
                         name="currMinStock"
                         className={styles.productForm__range}
-                        onChange={updateFilters}
+                        onChange={(e) => {
+                            const { name, value } = e.target as HTMLInputElement;
+                            updateFilters(name, parseInt(value, 10));
+                        }}
                         onMouseUp={(e) => {
                             const { name, value } = e.target as HTMLInputElement;
                             updateQueryFilters(name, parseInt(value, 10));
@@ -175,10 +217,14 @@ export default function ProductForm() {
                         type="range"
                         name="currMaxStock"
                         className={styles.productForm__range}
-                        onChange={updateFilters}
+                        onChange={(e) => {
+                            const { name, value } = e.target as HTMLInputElement;
+                            updateFilters(name, parseInt(value, 10));
+                        }}
                         onMouseUp={(e) => {
                             const { name, value } = e.target as HTMLInputElement;
                             updateQueryFilters(name, parseInt(value, 10));
+                            // updateFilters(name, parseInt(value, 10));
                         }}
                         min={minStock}
                         max={maxStock}

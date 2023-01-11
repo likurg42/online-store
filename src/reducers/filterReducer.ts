@@ -60,14 +60,13 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
             return { ...state, filteredProducts };
         }
         case UPDATE_FILTERS: {
-            const { name, value } = action.payload as { name: keyof Filters; value: string };
+            const { name, value } = action.payload as { name: keyof Filters; value: string | number };
 
             if (name === 'currMinPrice') {
-                const parsedValue = parseInt(value, 10);
-                if (parsedValue) {
+                if (value && typeof value === 'number') {
                     return {
                         ...state,
-                        filters: { ...state.filters, [name]: parsedValue },
+                        filters: { ...state.filters, [name]: value },
                     };
                 }
 
@@ -75,35 +74,30 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
             }
 
             if (name === 'currMaxPrice') {
-                const parsedValue = parseInt(value, 10) || state.maxPrice;
-                if (parsedValue > state.filters.currMinPrice + 100) {
+                if (value > state.filters.currMinPrice + 100 && typeof value === 'number') {
                     return {
                         ...state,
-                        filters: { ...state.filters, [name]: parsedValue },
+                        filters: { ...state.filters, [name]: value },
                     };
                 }
 
                 return { ...state };
             }
-            if (name === 'currMinStock') {
-                const parsedValue = parseInt(value, 10);
-
-                if (parsedValue < (state.filters.currMaxStock || state.maxStock) - 10) {
+            if (name === 'currMinStock' && typeof value === 'number') {
+                if (value < (state.filters.currMaxStock || state.maxStock) - 10) {
                     return {
                         ...state,
-                        filters: { ...state.filters, [name]: parsedValue },
+                        filters: { ...state.filters, [name]: value },
                     };
                 }
 
                 return { ...state };
             }
-            if (name === 'currMaxStock') {
-                const parsedValue = parseInt(value, 10);
-
-                if (parsedValue > state.filters.currMinStock + 10) {
+            if (name === 'currMaxStock' && typeof value === 'number') {
+                if (value > state.filters.currMinStock + 10) {
                     return {
                         ...state,
-                        filters: { ...state.filters, [name]: parsedValue },
+                        filters: { ...state.filters, [name]: value },
                     };
                 }
 

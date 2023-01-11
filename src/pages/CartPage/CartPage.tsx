@@ -19,7 +19,11 @@ export default function CartPage() {
     } = useCartContext() as CartContextInterface;
     const location = useLocation();
     const [open, setModal] = useState(location.state?.open ?? false);
-    const [pagination, setPagination] = useState({ currPage: 1, numberOfPages: 1, numberOfItemsOnPage: 3 });
+    const [pagination, setPagination] = useState({
+        currPage: 1,
+        numberOfPages: 1,
+        numberOfItemsOnPage: cart.length < 3 ? cart.length : 3,
+    });
     const [promoPreview, setPromoPreview] = useState({ show: false, name: '', id: 0 });
     const { finalAmount, discountValue } = getCartFinalAmount();
 
@@ -63,6 +67,7 @@ export default function CartPage() {
         return setPagination((prev) => ({
             ...prev,
             currPage: pagination.currPage > lastPage ? lastPage : pagination.currPage,
+            numberOfItemsOnPage: cart.length < 3 ? cart.length : 3,
         }));
     };
 
@@ -132,7 +137,7 @@ export default function CartPage() {
                     .map((item) => {
                         const { title, image, id, price, stock, amount } = item;
                         return (
-                            <div className={style.product} key={id}>
+                            <Link to={`/product/${id}`} className={style.product} key={id}>
                                 <div className={style['product__img-wrapper']}>
                                     <img className={style.product__img} src={image} alt={title} />
                                 </div>
@@ -152,7 +157,7 @@ export default function CartPage() {
                                 >
                                     &#10006;
                                 </button>
-                            </div>
+                            </Link>
                         );
                     })}
 

@@ -87,7 +87,7 @@ export interface FilterContextState {
 export interface FilterUtils {
     setView: React.ChangeEventHandler<HTMLSelectElement>;
     updateSort: React.ChangeEventHandler<HTMLSelectElement>;
-    updateFilters: React.ChangeEventHandler<HTMLSelectElement | HTMLInputElement>;
+    updateFilters: (name: string, value: number | string) => void;
     updateQueryFilters: (name: string, value: number | string) => void;
     updateFiltersFromQuery: (newFilter: { [key: string]: string }) => void;
     clearFilters: () => void;
