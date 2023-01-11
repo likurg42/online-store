@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import styles from './ProductForm.module.scss';
 import useFilterContext from '../../hooks/useFilterContext';
 import { FilterContextInterface } from '../../types/contexts';
+import formatPrice from '../../utils/formatPrice';
 
 export default function ProductForm() {
     const [urlButtonText, setUrlButtonText] = useState('Copy link');
@@ -137,10 +138,10 @@ export default function ProductForm() {
 
                 <span className={styles.productForm__labelGroup}>
                     <label className={styles.productForm__label} htmlFor="currMinPrice">
-                        {currMinPrice || minPrice}
+                        {formatPrice(currMinPrice)}
                     </label>
                     <label className={styles.productForm__label} htmlFor="currMaxPrice">
-                        {currMaxPrice || maxPrice}
+                        {formatPrice(currMaxPrice)}
                     </label>
                 </span>
                 <span className={styles.productForm__multiRange}>
