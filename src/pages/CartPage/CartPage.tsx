@@ -218,7 +218,7 @@ export default function CartPage() {
                                     ))}
                                 </span>
                                 <ul className={style.cartForm__promos}>
-                                    {promocodes.map(({ id, name, active }) => {
+                                    {promocodes.map(({ id, name, active, discountValue: value }) => {
                                         if (active) {
                                             return (
                                                 <li key={id} className={style.cartForm__promo}>
@@ -233,6 +233,7 @@ export default function CartPage() {
                                                     >
                                                         DROP
                                                     </button>
+                                                    <span>{value}% Discount</span>
                                                 </li>
                                             );
                                         }
@@ -250,7 +251,7 @@ export default function CartPage() {
                                     <span>Items: {totalProducts}</span>
                                     <span className={style.cartForm__amountLayout}>
                                         <span className={style.cartForm__amount}>
-                                            {discountValue === 0 ? '' : `Total: ${totalAmount}`}
+                                            {discountValue === 0 ? '' : `Total: ${formatPrice(totalAmount)}`}
                                         </span>
                                         <span className={style.cartForm__finalAmount}>
                                             {' '}
