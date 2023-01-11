@@ -4,6 +4,8 @@ import cl from './PaymentModal.module.scss';
 import visa from './assets/visa.png';
 import ms from './assets/mastercard.png';
 import unionpay from './assets/unionpay.png';
+import useCartContext from '../../hooks/useCartContext';
+import { CartContextInterface } from '../../types/contexts';
 
 type FormFields = {
     email: HTMLInputElement;
@@ -20,6 +22,7 @@ type FormFields = {
 // };
 
 export default function PaymentModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+    const { clearCart } = useCartContext() as CartContextInterface;
     const navigate = useNavigate();
     const [openModal, setOpenModal] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -153,6 +156,7 @@ export default function PaymentModal({ open, onClose }: { open: boolean; onClose
             setSuccess(true);
             setTimeout(() => {
                 navigate('/');
+                clearCart();
             }, 5000);
         }
     };
