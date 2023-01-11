@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cl from './PaymentModal.module.scss';
+import visa from './assets/visa.png';
+import ms from './assets/mastercard.png';
+import unionpay from './assets/unionpay.png';
 
 type FormFields = {
     email: HTMLInputElement;
@@ -19,8 +22,8 @@ type FormFields = {
 export default function PaymentModal({ open, onClose }: { open: boolean; onClose: () => void }) {
     const navigate = useNavigate();
     const [openModal, setOpenModal] = useState(false);
-
     const [success, setSuccess] = useState(false);
+    const [cardImage, setCardImage] = useState('');
     const [state, setState] = useState({
         email: '',
         name: '',
@@ -188,7 +191,14 @@ export default function PaymentModal({ open, onClose }: { open: boolean; onClose
         if (name === 'card') {
             const lastCharachter: string = value.split('').at(-1) || '';
             if (value.length > 16 || !lastCharachter.match(/[0-9]+/)) newValue = state[name];
-            if (lastCharachter === '') newValue = value;
+            if (lastCharachter === '') {
+                setCardImage('');
+                newValue = value;
+            }
+
+            if (newValue.startsWith('2')) setCardImage(visa);
+            if (newValue.startsWith('5')) setCardImage(ms);
+            if (newValue.startsWith('6')) setCardImage(unionpay);
         }
 
         setState((prev) => ({
@@ -264,17 +274,25 @@ export default function PaymentModal({ open, onClose }: { open: boolean; onClose
                     onChange={onChange}
                 />
                 <span className={cl.modal__error}>{errors.email ? 'Invalid Email' : null}</span>
-
-                <input
-                    className={errors.card ? `${cl.modal__input} ${cl['modal__input--error']}` : cl.modal__input}
-                    name="card"
-                    type="text"
-                    pattern="[0-9]+"
-                    placeholder="Card"
-                    required
-                    onChange={onChange}
-                    value={state.card}
-                />
+                <span className={cl.modal__expDateLayout}>
+                    <input
+                        className={errors.card ? `${cl.modal__input} ${cl['modal__input--error']}` : cl.modal__input}
+                        name="card"
+                        type="text"
+                        pattern="[0-9]+"
+                        placeholder="Card"
+                        required
+                        onChange={onChange}
+                        value={state.card}
+                    />
+                    <img
+                        className={
+                            cardImage !== '' ? cl.modal__card : [cl.modal__card, cl.modal__card_hidden].join(' ')
+                        }
+                        src={cardImage}
+                        alt="card preview"
+                    />
+                </span>
                 <span className={cl.modal__error}>{errors.card ? 'Invalid Card' : null}</span>
                 <div className={cl.modal__splitLayout}>
                     <input
@@ -295,11 +313,12 @@ export default function PaymentModal({ open, onClose }: { open: boolean; onClose
                         }
                         name="expirationDate"
                         type="text"
-                        placeholder="expirationDate"
+                        placeholder="Expiration Date"
                         required
                         onChange={onChange}
                         value={state.expirationDate}
                     />
+
                     <span className={cl.modal__error}>{errors.expirationDate ? 'Invalid Date' : null}</span>
                 </div>
                 <button className={cl.modal__payButton} type="submit">

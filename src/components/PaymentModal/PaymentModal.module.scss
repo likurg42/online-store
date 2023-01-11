@@ -93,3 +93,18 @@
     font-size: var(--fs-400);
     color: var(--clr-main-2);
 }
+
+.modal__expDateLayout {
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+}
+.modal__card {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.modal__card_hidden {
+    display: none;
+}
