@@ -19,6 +19,7 @@ import {
     UPDATE_QUERY_FILTERS,
 } from '../utils/actions';
 import sortProducts from '../utils/sortProducts';
+import filterUnique from '../utils/filterUnique';
 
 function filterReducer(state: FilterContextState, action: FilterContextDispatcherAction): FilterContextState {
     switch (action.type) {
@@ -26,8 +27,8 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
             const products = action.payload as Product[];
             const maxPrice = Math.max(...products.map((product) => product.price)) + 100;
             const maxStock = Math.max(...products.map((product) => product.stock)) + 10;
-            const brands = products.map((product) => product.brand).filter((v, i, a) => a.indexOf(v) === i);
-            const categories = products.map((product) => product.category).filter((v, i, a) => a.indexOf(v) === i);
+            const brands = products.map((product) => product.brand).filter(filterUnique);
+            const categories = products.map((product) => product.category).filter(filterUnique);
             return {
                 ...state,
                 allProducts: [...products],
@@ -178,7 +179,6 @@ function filterReducer(state: FilterContextState, action: FilterContextDispatche
                 ...(queryFilters.currMaxStock && { currMaxStock: parseInt(queryFilters.currMaxStock, 10) }),
             } as Filters;
 
-            console.log(parsedFilters, '1');
             return {
                 ...state,
                 queryFilters,

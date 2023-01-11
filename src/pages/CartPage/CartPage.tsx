@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import style from './CartPage.module.scss';
 import useCartContext from '../../hooks/useCartContext';
 import { CartContextInterface } from '../../types/contexts';
@@ -8,7 +8,8 @@ import formatPrice from '../../utils/formatPrice';
 
 export default function CartPage() {
     const { cart, totalAmount, totalProducts, removeFromCart, clearCart } = useCartContext() as CartContextInterface;
-    const [open, setModal] = useState(false);
+    const location = useLocation();
+    const [open, setModal] = useState(location.state.open || false);
 
     return (
         <section className="main-section container">

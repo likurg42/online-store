@@ -1,20 +1,21 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import styles from './ProductForm.module.scss';
 import useFilterContext from '../../hooks/useFilterContext';
 import { FilterContextInterface } from '../../types/contexts';
 
 export default function ProductForm() {
+    const [urlButtonText, setUrlButtonText] = useState('Copy link');
     const {
         updateFilters,
-        brands,
-        categories,
         filters,
         minStock,
         maxStock,
         minPrice,
         maxPrice,
         queryFilters,
+        brands,
+        categories,
         clearFilters,
         updateQueryFilters,
     } = useFilterContext() as FilterContextInterface;
@@ -195,6 +196,17 @@ export default function ProductForm() {
                     }}
                 >
                     Clear
+                </button>
+                <button
+                    className={styles.productForm__btn}
+                    type="button"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        navigator.clipboard.writeText(window.location.href);
+                        setTimeout(() => setUrlButtonText('Copy url'), 700);
+                    }}
+                >
+                    {urlButtonText}
                 </button>
             </p>
         </form>
