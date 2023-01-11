@@ -4,7 +4,7 @@ import useCartContext from '../../hooks/useCartContext';
 import { CartContextInterface } from '../../types/contexts';
 
 export default function ChangeAmount({ id }: { id: number }) {
-    const { cart, updateCartItemAmount } = useCartContext() as CartContextInterface;
+    const { cart, updateCartItemAmount, removeFromCart } = useCartContext() as CartContextInterface;
     const cartItem = cart.find((item) => item.id === id);
     if (cartItem) {
         return (
@@ -14,7 +14,11 @@ export default function ChangeAmount({ id }: { id: number }) {
                     type="button"
                     onClick={(e) => {
                         e.preventDefault();
-                        updateCartItemAmount(id, cartItem.amount - 1);
+                        if (cartItem.amount - 1 === 0) {
+                            removeFromCart(id);
+                        } else {
+                            updateCartItemAmount(id, cartItem.amount - 1);
+                        }
                     }}
                 >
                     -
