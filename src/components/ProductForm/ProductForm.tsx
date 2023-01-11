@@ -203,6 +203,7 @@ export default function ProductForm() {
                     onClick={(e) => {
                         e.preventDefault();
                         navigator.clipboard.writeText(window.location.href);
+                        setUrlButtonText('url copied!');
                         setTimeout(() => setUrlButtonText('Copy url'), 700);
                     }}
                 >
