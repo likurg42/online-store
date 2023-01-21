@@ -2,7 +2,7 @@
   "name": "online-store",
   "version": "1.0.0",
   "description": "",
-  "main": "main.jsx",
+  "main": "index.tsx",
   "scripts": {
     "develop": "webpack serve --open --config webpack.common.js --env mode=dev",
     "build": "webpack --config webpack.common.js --env mode=prod",
@@ -18,12 +18,15 @@
     "@typescript-eslint/parser": "^5.46.0",
     "css-loader": "^6.7.2",
     "eslint": "^8.29.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^3.5.2",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "filemanager-webpack-plugin": "^8.0.0",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.0",
@@ -43,6 +46,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "modern-normalize": "^1.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.5.0"

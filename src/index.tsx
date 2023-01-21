@@ -1,18 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { ProductsProvider } from './context/productsContext';
+import { FilterProvider } from './context/filterContext';
+import { CartProvider } from './context/cartContext';
 import App from './App';
 import './styles/styles.scss';
 
-const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <App />,
-    },
-]);
-
 ReactDOM.createRoot(document.getElementById('root') as Element).render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <ProductsProvider>
+            <FilterProvider>
+                <CartProvider>
+                    <App />
+                </CartProvider>
+            </FilterProvider>
+        </ProductsProvider>
     </React.StrictMode>,
 );

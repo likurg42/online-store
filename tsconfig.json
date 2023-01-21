@@ -16,10 +16,14 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noImplicitAny": true,
-    "allowJs": true,
+    "allowJs": false,
     "strictNullChecks": true,
     "removeComments": true,
     "jsx": "react",
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types"
+    ]
+  },
 }

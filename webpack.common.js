@@ -7,7 +7,7 @@ const devConfig = require('./webpack.dev');
 const baseConfig = {
     entry: path.join(__dirname, 'src', 'index.tsx'),
     resolve: {
-        extensions: ['.js', '.jsx', '.ts', '.jsx'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.scss'],
     },
     output: {
         path: path.join(__dirname, 'dist'),
@@ -20,14 +20,6 @@ const baseConfig = {
                 test: /\.([tj]s|[tj]sx)$/,
                 use: 'ts-loader',
                 exclude: /node_modules/,
-            },
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader', 'postcss-loader'],
-            },
-            {
-                test: /\.s[ac]ss$/i,
-                use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
             },
             {
                 test: /\.(png|jpg|jpeg|gif)$/i,

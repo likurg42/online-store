@@ -1,0 +1,236 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    margin: 0 auto;
+    text-transform: uppercase;
+    font-family: 'Oswald';
+}
+
+.h1 {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 68px;
+    font-style: normal;
+}
+.captions {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    line-height: 27px;
+    font-weight: 500;
+    color: #828282;
+    font-size: 18px;
+    text-align: center;
+
+    > * {
+        width: calc(100% / 4 - var(--gap) / 3);
+        flex-grow: 1;
+    }
+}
+
+.product {
+    all: unset;
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    height: 190px;
+    border-top: 1px solid #c4c4c4;
+    border-bottom: 1px solid #c4c4c4;
+    cursor: pointer;
+
+    > * {
+        width: calc(100% / 4 - var(--gap) / 3);
+        flex-grow: 1;
+    }
+}
+
+.product__img-wrapper {
+    display: flex;
+    height: 100%;
+}
+
+.product__img {
+    height: auto;
+    border-radius: 5px;
+    object-fit: contain;
+    max-width: 100%;
+}
+
+.product__counter {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    align-items: center;
+}
+
+.product__remove {
+    display: grid;
+    place-content: center;
+    position: absolute;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    outline: solid 1px #828282;
+    padding: 0 2px;
+    opacity: 0.6;
+    color: #828282;
+    transition: opacity ease 0.5s;
+    border: none;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 1;
+    }
+}
+
+.buttons {
+    display: flex;
+    padding-top: 20px;
+    gap: var(--gap);
+}
+
+.btn {
+    all: unset;
+    padding: 1rem 0;
+    min-width: 9.375rem;
+    font-family: var(--ff-main);
+    font-size: var(--fs-400);
+    font-weight: var(--fw-500);
+    background-color: var(--clr-black);
+    color: var(--clr-white);
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    border: none;
+
+    &:hover {
+        background-color: var(--clr-main-2);
+        color: var(--clr-white);
+        cursor: pointer;
+    }
+}
+
+.control-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    align-items: flex-start;
+}
+
+.forms-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+}
+
+.cartForm {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.cartForm__inner {
+    display: flex;
+    flex-direction: column;
+    padding: 2.3125rem;
+    gap: 1.6875rem;
+    background-color: var(--clr-light-blue);
+    border: 1px solid var(--clr-border);
+}
+
+.cartForm__item {
+    display: flex;
+    margin: 0;
+    justify-content: space-between;
+    font-weight: var(--fw-400);
+    font-size: var(--fs-800);
+}
+
+.cartForm__btn {
+    padding: 0.2rem;
+    background: var(--clr-black);
+    font-size: var(--fs-400);
+    color: var(--clr-white);
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--clr-main-2);
+    }
+}
+
+.cartForm__btn_submit {
+    padding: 1.2188rem 0;
+}
+
+.cartForm__input {
+    background-color: var(--clr-white);
+    color: var(--clr-black);
+    border: 1px solid var(--clr-border);
+    width: 100%;
+    padding: 1rem;
+}
+
+.cartForm__promos {
+    display: flex;
+    gap: var(--gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pagination {
+    display: flex;
+    gap: var(--gap);
+    align-items: center;
+}
+
+.cartForm__promo {
+    display: flex;
+    align-items: center;
+    gap: var(--gap);
+    margin: 0;
+    padding: 0;
+}
+
+.cartForm__amount {
+    text-decoration: line-through;
+}
+
+.cartForm__amountLayout {
+    display: flex;
+    flex-direction: column;
+}
+
+.pagination__numberOfItems {
+    display: flex;
+    gap: var(--gap);
+    align-items: center;
+    font-family: var(--ff-main);
+
+    input {
+        padding: 0.3rem;
+        border-radius: 0.3rem;
+        padding: 0.2rem;
+        border: 1px solid var(--clr-black);
+    }
+}
+
+.pagination__currentPage {
+    width: 3.125rem;
+}
+
+.pagination__button {
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+    background-color: var(--clr-black);
+    border: none;
+    color: var(--clr-white);
+}

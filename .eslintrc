@@ -3,12 +3,14 @@
     "parser": "@typescript-eslint/parser",
     "plugins": [
         "prettier",
+        "react",
         "import",
         "@typescript-eslint"
     ],
     "extends": [
         "plugin:@typescript-eslint/recommended",
-        "airbnb-base",
+        "airbnb",
+        "airbnb/hooks",
         "airbnb-typescript/base",
         "plugin:import/recommended",
         "plugin:import/typescript",
@@ -36,13 +38,33 @@
                     "**/webpack.*.js"
                 ]
             }
+        ],
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".jsx",
+                    ".tsx"
+                ]
+            }
+        ],
+        "import/no-unresolved": [
+            2,
+            {
+                "ignore": [
+                    ".png$",
+                    ".webp$",
+                    ".jpg$"
+                ]
+            }
         ]
     },
     "settings": {
         "import/parsers": {
             "@typescript-eslint/parser": [
                 ".ts",
-                ".tsx"
+                ".tsx",
+                ".d.ts"
             ]
         },
         "import/resolver": {
