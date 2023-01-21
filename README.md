@@ -1,6 +1,6 @@
 # Crisp - Online Store
 
-![Crisp - Online Store](./readme/logo.png)
+[![Crisp - Online Store](./readme/logo.png)](https://likurg42.github.io/online-store/)
 
 > Online store with all products you may ever need
 
@@ -39,4 +39,4 @@ npm run lint
 
 ## Deploy
 
-[Github Pages](https://likurg42.github.io/online-store/#/)
+[Github Pages](https://likurg42.github.io/online-store/)
